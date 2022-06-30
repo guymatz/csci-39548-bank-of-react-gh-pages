@@ -35,7 +35,7 @@ class LogIn extends Component {
   
   render () {
     // Redirect to "User Profile" page when "Log In" button is clicked
-    if (this.state.redirect) {  
+    if (this.state.redirect) {
       return (<Redirect to="/userProfile"/>)
     }
 

@@ -6,30 +6,27 @@ import React, { useState }  from 'react';
 const Debits = (props) => {
 
   const [debits, addDebit] = useState([]);
-  //addDebit(props.debits);
-  const [totalDebits, setTotalDebits] = useState(props.totalDebits);
-  console.log("Debits in Debits: " + debits.length);
-  console.log("props.Debits in Debits: " + props.debits.length);
-  console.log("totalDebits in Debits: " + totalDebits);
-  console.log("props.totalDebits in Debits: " + props.totalDebits);
+  const [totalDebits, setTotalDebits] = useState(0);
 
   const submitHandler = (e) => {
+    console.log(props.debits);
+    console.log(props.totalDebits);
     e.preventDefault(); // ?
     var amt = e.target.elements.amount.value;
     var desc = e.target.elements.description.value;
-    console.log("+++ Amount: " + amt);
-    console.log("+++ Description: " + desc);
-    console.log("+++ Debits length before: " + debits.length);
-    console.log("+++ totalDebits before: " + totalDebits);
+    console.log("Amount: " + amt);
+    console.log("Description: " + desc);
+    console.log("Debits length before: " + props.debits.length);
+    console.log("totalDebits before: " + props.totalDebits);
 
     //App.addDebit({"description":desc, "amount":amt});
 
     const today = new Date().toLocaleString();
-    //console.log("Today is : " + today);
-    addDebit([...debits, {"description":desc, "amount":amt, "date":today}]);
-    setTotalDebits(80);
-    console.log("Debits length after: " + debits.length);
-    console.log("totalDebits after: " + totalDebits);
+    console.log("Today is : " + today);
+    addDebit(debits => [...props.debits, {"description":desc, "amount":amt, "date":today}]);
+    setTotalDebits(totalDebits => 80);
+    console.log("Debits length after: " + props.debits.length);
+    console.log("totalDebits after: " + props.totalDebits);
 
   };
 
