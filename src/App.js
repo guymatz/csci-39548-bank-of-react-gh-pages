@@ -34,12 +34,9 @@ class App extends Component {
     this.setState({currentUser: newUser})
   }
 
-  hello() {
-    alert("Hi Jose!!");
-  }
-
   addDebit(d) {
-    this.state.debits.concat(d);
+    const updatedState = {...this.state, debits: this.state.debits.concat(d)};
+    this.setState(updatedState);
   };
   addCredit(c) {};
 
@@ -86,8 +83,8 @@ class App extends Component {
       <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  />
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)  // Pass props to "LogIn" component
-    const DebitsComponent = () => (<Debits debits={this.state.debits} totalDebits={this.state.totalDebits} />)  // Pass props to "LogIn" component
-    const CreditsComponent = () => (<Credits credits={this.state.credits} totalCredits={this.state.totalCredits} />)  // Pass props to "LogIn" component
+    const DebitsComponent = () => (<Debits addDebitClicked={this.addDebit.bind(this)} debits={this.state.debits} totalDebits={this.state.totalDebits} />)  // Pass props to "Debits" component
+    const CreditsComponent = () => (<Credits credits={this.state.credits} totalCredits={this.state.totalCredits} />)  // Pass props to "Credits" component
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
