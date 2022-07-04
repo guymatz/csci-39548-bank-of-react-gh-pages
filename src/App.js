@@ -38,7 +38,10 @@ class App extends Component {
     const updatedState = {...this.state, debits: this.state.debits.concat(d)};
     this.setState(updatedState);
   };
-  addCredit(c) {};
+  addCredit(c) {
+    const updatedState = {...this.state, credits: this.state.credits.concat(c)};
+    this.setState(updatedState);
+  };
 
   async componentDidMount() {
     // Get Credits
@@ -77,14 +80,13 @@ class App extends Component {
   // Create Routes and React elements to be rendered using React components
   render() {
     // Create React elements
-    {/* const HomeComponent = () => (<Home accountBalance={this.state.accountBalance}/>); */}
     const HomeComponent = () => (<Home totalDebits={this.state.totalDebits} totalCredits={this.state.totalCredits} />);
     const UserProfileComponent = () => (
       <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  />
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)  // Pass props to "LogIn" component
     const DebitsComponent = () => (<Debits addDebitClicked={this.addDebit.bind(this)} debits={this.state.debits} totalDebits={this.state.totalDebits} />)  // Pass props to "Debits" component
-    const CreditsComponent = () => (<Credits credits={this.state.credits} totalCredits={this.state.totalCredits} />)  // Pass props to "Credits" component
+    const CreditsComponent = () => (<Credits addCreditClicked={this.addCredit.bind(this)} credits={this.state.credits} totalCredits={this.state.totalCredits} />)  // Pass props to "Credits" component
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
