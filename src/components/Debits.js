@@ -18,7 +18,7 @@ const Debits = (props) => {
 
     //App.addDebit({"description":desc, "amount":amt});
 
-    const today = new Date().toLocaleString();
+    const today = new Date().toISOString().split('T')[0];
     //console.log("Today is : " + today);
     props.addDebitClicked({id: Math.floor(Math.random() * 10000), "description":desc, "amount":amt, "date":today});
     //setTotalDebits(80);
