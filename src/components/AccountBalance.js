@@ -5,8 +5,8 @@ import React, {Component} from 'react';
 class AccountBalance extends Component {
   // Display account balance
   getAccountBalance() {
-    console.log("AccountBalance totalCredits: " + this.props.totalCredits);
-    return this.props.totalCredits - this.props.totalDebits;
+    console.log("AccountBalance accountBalance: " + this.props.accountBalance);
+    return this.props.accountBalance.toFixed(2);
   }
 
   render() {

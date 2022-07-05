@@ -21,10 +21,7 @@ class Home extends Component {
         <br/>
         <Link to="/debits">Debits</Link>
         <br/><br/>
-        {/*
         <AccountBalance accountBalance={this.props.accountBalance}/>
-        */}
-        <AccountBalance totalDebits={this.props.totalDebits} totalCredits={this.props.totalCredits} />
       </div>
     );
   }

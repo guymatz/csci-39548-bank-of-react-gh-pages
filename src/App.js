@@ -20,8 +20,6 @@ class App extends Component {
         userName: 'Joe Smith',
         memberSince: '11/22/99',
       },
-      totalCredits: 0,
-      totalDebits: 0,
       credits: [],
       debits: []
     };
@@ -35,13 +33,19 @@ class App extends Component {
   }
 
   addDebit(d) {
+    console.log("Subtracting " + JSON.stringify(d))
     const updatedState = {...this.state, debits: this.state.debits.concat(d)};
+    updatedState.accountBalance = updatedState.accountBalance - parseFloat(d.amount)
     this.setState(updatedState);
-  };
+  }
+
   addCredit(c) {
+    console.log("Adding " + parseFloat(c.amount))
+    console.log(" ---- to " + JSON.stringify(this.state.accountBalance))
     const updatedState = {...this.state, credits: this.state.credits.concat(c)};
+    updatedState.accountBalance = updatedState.accountBalance + parseFloat(c.amount)
     this.setState(updatedState);
-  };
+  }
 
   async componentDidMount() {
     // Get Credits
@@ -49,14 +53,14 @@ class App extends Component {
       let linkToDebitsAPI = 'https://moj-api.herokuapp.com/debits';
       try {
         let resp = await axios.get(linkToDebitsAPI);
-        console.log("Resp Debits: " + resp);
+        // console.log("Resp Debits: " + resp);
         this.setState({debits: resp.data});
-        console.log("DEBITS: " + this.state.debits);
+        // console.log("DEBITS: " + this.state.debits);
       }
       catch (error) {
         if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
+          // console.log(error.response.data);
+          // console.log(error.response.status);
         }
       }
     }
@@ -75,18 +79,37 @@ class App extends Component {
         }
       }
     }
+
+    console.log("AccountBalance before adding debits: " + this.state.accountBalance);
+    for (const debit of this.state.debits) {
+      console.log("Subtracting " + parseFloat(debit.amount) + " from " + this.state.accountBalance);
+      const updatedState = {...this.state}
+      updatedState.accountBalance = updatedState.accountBalance - parseFloat(debit.amount)
+      this.setState(updatedState);
+    }
+    console.log("AccountBalance AFTER adding debits: " + this.state.accountBalance);
+
+    for (const credit of this.state.credits) {
+      console.log("Adding " + parseFloat(credit.amount) + " to " + this.state.accountBalance);
+      const updatedState = {...this.state}
+      updatedState.accountBalance = updatedState.accountBalance + parseFloat(credit.amount)
+      this.setState(updatedState);
+    }
+    console.log("accountBalance: " + this.state.accountBalance);
+
   }
+
 
   // Create Routes and React elements to be rendered using React components
   render() {
     // Create React elements
-    const HomeComponent = () => (<Home totalDebits={this.state.totalDebits} totalCredits={this.state.totalCredits} />);
+    const HomeComponent = () => (<Home totalDebits={this.state.totalDebits} accountBalance={this.state.accountBalance} />);
     const UserProfileComponent = () => (
       <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince}  />
     );
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)  // Pass props to "LogIn" component
-    const DebitsComponent = () => (<Debits addDebitClicked={this.addDebit.bind(this)} debits={this.state.debits} totalDebits={this.state.totalDebits} />)  // Pass props to "Debits" component
-    const CreditsComponent = () => (<Credits addCreditClicked={this.addCredit.bind(this)} credits={this.state.credits} totalCredits={this.state.totalCredits} />)  // Pass props to "Credits" component
+    const DebitsComponent = () => (<Debits addDebitClicked={this.addDebit.bind(this)} debits={this.state.debits} accountBalance={this.state.accountBalance} />)  // Pass props to "Debits" component
+    const CreditsComponent = () => (<Credits addCreditClicked={this.addCredit.bind(this)} credits={this.state.credits} accountBalance={this.state.accountBalance} />)  // Pass props to "Credits" component
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (

@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 const Debits = (props) => {
 
   console.log("props.Debits in Debits: " + props.debits.length);
-  console.log("props.totalDebits in Debits: " + props.totalDebits);
+  console.log("props.accountBalance in Debits: " + props.accountBalance);
 
   const submitHandler = (e) => {
     e.preventDefault(); // ?
@@ -14,7 +14,7 @@ const Debits = (props) => {
     console.log("+++ Amount: " + amt);
     console.log("+++ Description: " + desc);
     console.log("+++ Debits length before: " + props.debits.length);
-    console.log("+++ totalDebits before: " + props.totalDebits);
+    console.log("+++ accountBalance before: " + props.accountBalance);
 
     //App.addDebit({"description":desc, "amount":amt});
 
@@ -23,7 +23,7 @@ const Debits = (props) => {
     props.addDebitClicked({id: Math.floor(Math.random() * 10000), "description":desc, "amount":amt, "date":today});
     //setTotalDebits(80);
     console.log("Debits length after: " + props.debits.length);
-    console.log("totalDebits after: " + props.totalDebits);
+    console.log("accountBalance after: " + props.accountBalance);
 
   };
 

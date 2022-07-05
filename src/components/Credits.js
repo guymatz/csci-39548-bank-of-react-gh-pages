@@ -4,8 +4,8 @@ import {Link} from 'react-router-dom';
 
 const Credits = (props) => {
 
-  console.log("props.Credits in Credits: " + props.credits.length);
-  console.log("props.totalCredits in Credits: " + props.totalCredits);
+  //console.log("props.Credits in Credits: " + props.credits.length);
+  //console.log("props.accountBalance (" + typeof(props.accountBalance) + ") in Credits: " + props.accountBalance);
 
   const submitHandler = (e) => {
     e.preventDefault(); // ?
@@ -14,7 +14,7 @@ const Credits = (props) => {
     console.log("+++ Amount: " + amt);
     console.log("+++ Description: " + desc);
     console.log("+++ Credits length before: " + props.credits.length);
-    console.log("+++ totalCredits before: " + props.totalCredits);
+    console.log("+++ accountBalance before: " + props.accountBalance);
 
     //App.addCredit({"description":desc, "amount":amt});
 
@@ -23,7 +23,7 @@ const Credits = (props) => {
     props.addCreditClicked({id: Math.floor(Math.random() * 10000), "description":desc, "amount":amt, "date":today});
     //setTotalCredits(80);
     console.log("Credits length after: " + props.credits.length);
-    console.log("totalCredits after: " + props.totalCredits);
+    console.log("accountBalance after: " + props.accountBalance);
 
   };
 
